@@ -1,0 +1,52 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+  <h1>{{ title }}</h1>
+  <p>Welcome to {{ title }}</p>
+
+  <pre>
+    name: {{ name }}
+    start: {{ start }}
+    end: {{ end }}
+  </pre>
+
+  <div>
+    {% if start %}
+      {% if end %}
+        <h2>
+          Congrats! You done it in {{ end - start }} milliseconds!
+        </h2>
+      {% else %}
+        <h2>Make it stop! You are in a fight for {{ now - start }} milliseconds</h2>
+        {% if uuid %}
+          <form action="/fights/{{ uuid }}/stop/" method="post">
+            <input type="submit" value="Stop fight">
+          </form>
+        {% endif %}
+      {% endif %}
+    {% endif %}
+  </div>
+
+  <br>
+  <hr>
+  <br>
+
+  <form class="form-horizontal" action="/fights/" method="post">
+    <fieldset>
+
+      <!-- Form Name -->
+      <legend>New fight</legend>
+
+      <!-- Text input-->
+      <label class="col-md-4 control-label" for="textinput">Text Input</label>
+      <div class="col-md-4">
+        <input id="name" name="name" type="text" placeholder="new fight with begimai" class="form-control input-md">
+        <span class="help-block">help</span>
+      </div>
+
+    </fieldset>
+    <hr>
+    <br>
+    <input type="submit" value="Start fight">
+  </form>
+{% endblock %}
